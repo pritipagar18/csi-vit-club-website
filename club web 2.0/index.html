@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CSI Pune - Computer Society of India</title>
+<style>
+  /* Video background styling */
+  #bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+    object-fit: cover;
+  }
+
+  /* Section block heading style */
+  .section-block {
+    background-color: #004080cc; /* Semi-transparent navy */
+    color: white;
+    padding: 15px;
+    margin: 15px auto;
+    width: 90%;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    border-radius: 8px;
+  }
+
+  /* Main content container */
+  .content {
+    position: relative;
+    z-index: 1;
+    padding: 20px 30px;
+    color: white;
+    background-color: rgba(0, 64, 128, 0.7); /* translucent navy */
+    margin: 20px auto;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 64, 128, 0.7);
+  }
+
+  /* Text styling */
+  ul, p, h1, h2, h3, table, td, th {
+    color: white;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+  }
+
+  th, td {
+    border: 1px solid #0066cc;
+    padding: 10px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #0059b3;
+  }
+
+  tr:nth-child(even) {
+    background-color: rgba(0, 102, 204, 0.3);
+  }
+
+  /* Buttons */
+  button {
+    padding: 10px 25px;
+    background-color: #0099ff;
+    border: none;
+    border-radius: 25px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+
+  button:hover {
+    background-color: #004080;
+    color: white;
+  }
+</style>
+<script>
+  // Show welcome alert when page loads
+  window.onload = function () {
+    alert("Welcome to the Computer Society of India – Pune Chapter!");
+  };
+
+  function displayDateTime() {
+    const dateTime = new Date();
+    const localTime = dateTime.toLocaleString();
+    document.getElementById("currentDateTime").innerHTML = localTime;
+  }
+
+  // Save registration data in localStorage on form submit
+  function saveRegistration(event) {
+    event.preventDefault(); // prevent actual form submission
+
+    const form = event.target;
+    const formData = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      department: form.department.value.trim(),
+      reason: form.reason.value.trim(),
+    };
+
+    // Get existing registrations or empty array
+    let registrations = JSON.parse(localStorage.getItem('csiRegistrations')) || [];
+
+    // Add new registration
+    registrations.push(formData);
+
+    // Save back to localStorage
+    localStorage.setItem('csiRegistrations', JSON.stringify(registrations));
+
+    alert('Registration saved successfully!');
+
+    form.reset(); // clear form
+
+    // Optionally, hide saved data div after new submission
+    document.getElementById('savedDataDisplay').style.display = 'none';
+  }
+
+  // Show all saved registrations in a div below the form
+  function showSavedRegistration() {
+    const savedData = localStorage.getItem('csiRegistrations');
+    const displayDiv = document.getElementById('savedDataDisplay');
+
+    if (!savedData) {
+      displayDiv.innerHTML = '<p>No registration data found!</p>';
+      displayDiv.style.display = 'block';
+      return;
+    }
+
+    const registrations = JSON.parse(savedData);
+
+    if (registrations.length === 0) {
+      displayDiv.innerHTML = '<p>No registration data found!</p>';
+      displayDiv.style.display = 'block';
+      return;
+    }
+
+    let html = '<h3>Saved Registrations</h3>';
+    registrations.forEach((data, index) => {
+      html += `
+        <div style="margin-bottom: 15px; border-bottom: 1px solid #0099ff; padding-bottom: 10px;">
+          <strong>Registration #${index + 1}</strong><br>
+          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>Email:</strong> ${data.email}</p>
+          <p><strong>Phone:</strong> ${data.phone}</p>
+          <p><strong>Department:</strong> ${data.department}</p>
+          <p><strong>Reason:</strong> ${data.reason}</p>
+        </div>
+      `;
+    });
+
+    displayDiv.innerHTML = html;
+    displayDiv.style.display = 'block';
+  }
+
+  // Toggle visibility of saved registrations div
+  function toggleSavedRegistration() {
+    const displayDiv = document.getElementById('savedDataDisplay');
+    if (displayDiv.style.display === 'none' || displayDiv.style.display === '') {
+      displayDiv.style.display = 'block';
+    } else {
+      displayDiv.style.display = 'none';
+    }
+  }
+
+  // DOM Feature 1: Change background color
+  function changeBackgroundColor() {
+    const content = document.querySelector('.content');
+    content.style.backgroundColor = 'rgba(0, 0, 64, 0.75)';
+  }
+
+  // DOM Feature 2: Toggle team table visibility
+  function toggleTeamTable() {
+    const teamTable = document.getElementById("teamTable");
+    if (teamTable.style.display === "none") {
+      teamTable.style.display = "table";
+    } else {
+      teamTable.style.display = "none";
+    }
+  }
+</script>
+</head>
+<body>
+
+  <!-- Background video -->
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="C:\Users\Asus\OneDrive\Desktop\club web 2.0\csi.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Website content -->
+  <div class="section-block">💻 COMPUTER SOCIETY OF INDIA – PUNE 💻</div>
+
+  <div class="content">
+    <center>
+      <h2><em>"Empowering tech minds for a digital future."</em></h2>
+    </center>
+
+    <hr style="border:1px solid #0099ff;" />
+
+    <div class="section-block" style="font-size:24px; margin-top: 30px;">🌐 About Us 🌐</div>
+    <p>
+      The Computer Society of India – Pune Chapter is a student-driven technical
+      community that fosters innovation, knowledge sharing, and professional growth
+      in the field of Computer Science and IT. We aim to create an engaging environment
+      where students can collaborate, learn, and grow through real-world tech exposure.
+    </p>
+
+    <hr style="border:1px solid #0099ff;" />
+
+    <div class="section-block" style="font-size:24px; margin-top: 30px;">🛠 What We Do</div>
+    <ul>
+      <li>Organize technical workshops, coding contests, and hackathons.</li>
+      <li>Conduct webinars, seminars, and industry expert sessions.</li>
+      <li>Mentor students in various technologies like AI, Web Dev, Cybersecurity, etc.</li>
+      <li>Collaborate with startups, professionals, and other clubs for impactful tech events.</li>
+    </ul>
+
+    <hr style="border:1px solid #0099ff;" />
+
+    <div class="section-block" style="font-size:24px; margin-top: 30px;">🤝 Meet Our Team</div>
+    <table id="teamTable">
+      <tr>
+        <th>Name</th>
+        <th>Position</th>
+      </tr>
+      <tr>
+        <td>Siddhi Sangwai</td>
+        <td>President</td>
+      </tr>
+      <tr>
+        <td>Suyash Sawant</td>
+        <td>Vice President</td>
+      </tr>
+      <tr>
+        <td>Madhur Bhutada</td>
+        <td>Technical Lead</td>
+      </tr>
+    </table>
+    <center>
+      <button onclick="toggleTeamTable()">Toggle Team Table</button>
+    </center>
+
+    <hr style="border:1px solid #0099ff;" />
+
+    <div class="section-block" style="font-size:24px; margin-top: 30px;">📅 Upcoming Events</div>
+    <table>
+      <tr>
+        <th>Event Name</th>
+        <th>Date</th>
+      </tr>
+      <tr>
+        <td>CodeSprint</td>
+        <td>10th JULY</td>
+      </tr>
+      <tr>
+        <td>TechTalk: Future of AI</td>
+        <td>5th AUGUST</td>
+      </tr>
+    </table>
+
+    <hr style="border:1px solid #0099ff;" />
+
+    <div class="section-block" style="font-size:24px; margin-top: 30px;">📝 Register to Join CSI</div>
+    <form id="registrationForm" onsubmit="saveRegistration(event)" method="post">
+      <table style="width: 100%; margin-top: 10px;">
+        <tr>
+          <td>Full Name:</td>
+          <td><input type="text" name="name" required style="width: 100%; padding: 8px; border-radius: 5px; border:none;" /></td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td><input type="email" name="email" required style="width: 100%; padding: 8px; border-radius: 5px; border:none;" /></td>
+        </tr>
+        <tr>
+          <td>Phone:</td>
+          <td><input type="text" name="phone" required style="width: 100%; padding: 8px; border-radius: 5px; border:none;" /></td>
+        </tr>
+        <tr>
+          <td>Department:</td>
+          <td><input type="text" name="department" required style="width: 100%; padding: 8px; border-radius: 5px; border:none;" /></td>
+        </tr>
+        <tr>
+          <td>Why do you want to join?</td>
+          <td><textarea name="reason" rows="4" style="width: 100%; border-radius: 5px; border:none; padding: 8px;"></textarea></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center;">
+            <button type="submit">Register</button>
+            <button type="reset" style="background-color:#ff6666; margin-left: 15px;">Clear</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+    <!-- Buttons to show/hide saved registrations -->
+    <center>
+      <button onclick="showSavedRegistration()">Show Saved Registration</button>
+      <button onclick="toggleSavedRegistration()">Hide Registrations</button>
+    </center>
+
+    <!-- Div to display saved registrations below the form -->
+    <div id="savedDataDisplay" style="margin-top: 30px; color: white; display:none;"></div>
+
+    <hr style="border:1px solid #0099ff;" />
+
+    <div class="section-block" style="font-size:24px; margin-top: 30px;">🔗 Follow Us</div>
+    <center style="margin-top: 10px;">
+      <a href="https://www.instagram.com/csi_vitpune?igsh=dmh5MjhoOHA3ZHBv" target="_blank" style="color:#00e5e5; text-decoration:none; font-weight:bold;">@csi_pune_chapter on Instagram</a><br />
+      <a href="https://youtube.com/@csistudentchaptervitpune6908?si=Z4JYdNqG-uO30c43" target="_blank" style="color:#00e5e5; text-decoration:none; font-weight:bold;">@csi_pune_chapter on Youtube</a><br />
+      <a href="https://www.linkedin.com/posts/computer-society-of-india-vit-pune_codeflix2025-thebugfather-debuggingchallenge-activity-7296812356494323714-hdwt?utm_source=share&utm_medium=member_android&rcm=ACoAAFSTZzYBE8icyUzuXDuB3UTZncTkQLnp4Mw" target="_blank" style="color:#00e5e5; text-decoration:none; font-weight:bold;">@csi_pune_chapter on LinkedIn</a>
+    </center>
+
+    <hr style="border:1px solid #0099ff;" />
+
+    <center>
+      <em style="font-size: 1.1rem;">"Join CSI and shape the tech world of tomorrow!"</em>
+    </center>
+
+    <button onclick="displayDateTime()">Show Current Date and Time</button>
+    <button onclick="changeBackgroundColor()">Change Background Color</button>
+    <p id="currentDateTime" style="margin-top: 10px; font-weight: bold;"></p>
+  </div>
+</body>
+</html>
